@@ -9,7 +9,7 @@
   </head>
   <body>
     <!-- <model-viewer> HTML element -->
-    <model-viewer src="Condor1 .glb" ar ar-modes="webxr scene-viewer quick-look" camera-controls tone-mapping="neutral" poster="poster.webp" shadow-intensity="1" autoplay>
+    <model-viewer id="modelViewer" src="Condor1 .glb" ar ar-modes="webxr scene-viewer quick-look" camera-controls tone-mapping="neutral" poster="poster.webp" shadow-intensity="1" autoplay>
       <div class="progress-bar hide" slot="progress-bar">
           <div class="update-bar"></div>
       </div>
@@ -19,8 +19,24 @@
       <div id="ar-prompt">
           <img src="ar_hand_prompt.png">
       </div>
-    </model-viewer>  
-    <script src="script.js"></script>
+    </model-viewer>
+
+    <!-- Audio Element -->
+    <audio id="condorAudio"  src="Condor Audio JBB.mp3" preload="auto"></audio>
+
+    <script>
+      const modelViewer = document.getElementById('modelViewer');
+      const audio = document.getElementById('condorAudio');
+
+      // Espera a que el modelo esté completamente cargado
+      modelViewer.addEventListener('load', () => {
+        // Intenta reproducir el sonido (necesita interacción del usuario en muchos navegadores)
+        audio.play().catch((e) => {
+          console.warn('El audio no se pudo reproducir automáticamente. Requiere interacción del usuario.', e);
+        });
+      });
+    </script>
+
     <!-- Loads <model-viewer> for browsers: -->
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
   </body>
